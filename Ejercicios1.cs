@@ -10,11 +10,11 @@ namespace esencia_logica
     private void determinarTerminadoEn4(){
         Console.WriteLine("1. Leer un número entero y determinar si es un número terminado en 4.");
         int[] numero = gestionDeDatos.inputInt(1,0);
-         if(libreria.numeroTerminadoEn(numero[0],4)){
+        if(libreria.numeroTerminadoEn(numero[0],4)){
             Console.WriteLine("El numero termina en 4");
-         }else{
+        }else{
             Console.WriteLine("El numero no termina en 4");
-         }
+        }
     }
     public override void ejercicio1(){
         determinarTerminadoEn4();
@@ -65,6 +65,22 @@ namespace esencia_logica
 
 /*
 5. Leer un número entero de dos dígitos y determinar si ambos dígitos son pares.
+*/
+    public void determinarAmbosDigitosPares(){
+        Console.WriteLine("5. Leer un número entero de dos dígitos y determinar si ambos dígitos son pares.");
+        int numero = gestionDeDatos.inputInt(1,2)[0];
+        int[] digitos =  libreria.digitosDelNumero(numero);
+        bool respuesta =  libreria.every(digitos,libreria.numeroEsPar);
+        if(respuesta){
+            Console.WriteLine("todos los dígitos de {0} son pares.",numero);
+        }else{
+            Console.WriteLine("algunos de los dígitos de {0} no son pares.",numero);
+        }
+    }
+    public override void ejercicio5(){
+        determinarAmbosDigitosPares();
+    }
+/*
 6. Leer un número entero de dos dígitos menor que 20 y determinar si es primo.
 7. Leer un número entero de dos dígitos y determinar si es primo y además si es negativo.
 8. Leer un número entero de dos dígitos y determinar si sus dos dígitos son primos.

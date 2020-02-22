@@ -27,6 +27,9 @@ namespace esencia_logica
                     case 4:
                         ejercicio4();
                     break;
+                     case 5:
+                        ejercicio5();
+                    break;                   
                     default:
                         Console.WriteLine("El dato escrito no se encuentra en la lista");
                         noPasar = true;
@@ -38,6 +41,7 @@ namespace esencia_logica
         public abstract void ejercicio2();
         public abstract void ejercicio3();
         public abstract void ejercicio4();
+        public abstract void ejercicio5();
 
     }
 }

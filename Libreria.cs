@@ -7,6 +7,20 @@ namespace esencia_logica
         public int ultimoDigito(int numero){
             return numero%10;
         }
+        public bool numeroEsPar(int numero){
+            return numero%2==0;
+        }
+        public bool every(int[] numeros,Func<int, bool> funcion1){
+            bool cumple = true;
+            for (int numero = 0; numero < numeros.Length; numero++)
+            {
+                if(funcion1(numeros[numero]) != true){
+                    cumple = false;
+                    break;
+                }
+            }
+            return cumple;
+        }
         public bool numeroTerminadoEn(int numeroIngresar,int numeroTerminado){
             return   ultimoDigito(numeroIngresar) ==numeroTerminado;
         }
