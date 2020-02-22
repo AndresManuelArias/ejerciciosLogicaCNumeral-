@@ -1,0 +1,11 @@
+/media/andres/Datos/ANDRES/LOGICA_PROGRAMACION/c_numeral/esencia_logica/bin/Debug/netcoreapp3.0/esencia_logica
+/media/andres/Datos/ANDRES/LOGICA_PROGRAMACION/c_numeral/esencia_logica/bin/Debug/netcoreapp3.0/esencia_logica.deps.json
+/media/andres/Datos/ANDRES/LOGICA_PROGRAMACION/c_numeral/esencia_logica/bin/Debug/netcoreapp3.0/esencia_logica.runtimeconfig.json
+/media/andres/Datos/ANDRES/LOGICA_PROGRAMACION/c_numeral/esencia_logica/bin/Debug/netcoreapp3.0/esencia_logica.runtimeconfig.dev.json
+/media/andres/Datos/ANDRES/LOGICA_PROGRAMACION/c_numeral/esencia_logica/bin/Debug/netcoreapp3.0/esencia_logica.dll
+/media/andres/Datos/ANDRES/LOGICA_PROGRAMACION/c_numeral/esencia_logica/bin/Debug/netcoreapp3.0/esencia_logica.pdb
+/media/andres/Datos/ANDRES/LOGICA_PROGRAMACION/c_numeral/esencia_logica/obj/Debug/netcoreapp3.0/esencia_logica.csprojAssemblyReference.cache
+/media/andres/Datos/ANDRES/LOGICA_PROGRAMACION/c_numeral/esencia_logica/obj/Debug/netcoreapp3.0/esencia_logica.AssemblyInfoInputs.cache
+/media/andres/Datos/ANDRES/LOGICA_PROGRAMACION/c_numeral/esencia_logica/obj/Debug/netcoreapp3.0/esencia_logica.AssemblyInfo.cs
+/media/andres/Datos/ANDRES/LOGICA_PROGRAMACION/c_numeral/esencia_logica/obj/Debug/netcoreapp3.0/esencia_logica.dll
+/media/andres/Datos/ANDRES/LOGICA_PROGRAMACION/c_numeral/esencia_logica/obj/Debug/netcoreapp3.0/esencia_logica.pdb
