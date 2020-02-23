@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace esencia_logica
 {
@@ -10,11 +11,45 @@ namespace esencia_logica
         public bool numeroEsPar(int numero){
             return numero%2==0;
         }
-        public bool every(int[] numeros,Func<int, bool> funcion1){
+        public int[] mapConvertir(int[] numeros,Func<int, int> funcion){
+            List<int> numerosConertidos = new List<int>();
+            foreach (var numero in numeros)
+            {
+                numerosConertidos.Add(funcion(numero));
+            }
+            return numerosConertidos.ToArray();
+        }
+        public bool some(int[] numeros,Func<int, bool> funcion){
+            bool  cumple = false;
+            for (int numero = 0; numero < numeros.Length; numero++)
+            {
+                if(funcion(numeros[numero]) == true){
+                    cumple = true;
+                    break;
+                }
+            }
+            return cumple;            
+        }
+        public bool every(int[] numeros,Func<int, bool>[] funciones){
+            bool cumple = true;
+            for(int funcion = 0;funcion < funciones.Length;funcion++)
+            {
+                for (int numero = 0; numero < numeros.Length; numero++)
+                {
+                    if(funciones[funcion](numeros[numero]) != true){
+                        cumple = false;
+                        goto salida;
+                    }
+                }
+            }
+            salida:
+            return cumple;
+        }
+        public bool every(int[] numeros,Func<int, bool> funcion){
             bool cumple = true;
             for (int numero = 0; numero < numeros.Length; numero++)
             {
-                if(funcion1(numeros[numero]) != true){
+                if(funcion(numeros[numero]) != true){
                     cumple = false;
                     break;
                 }
@@ -26,6 +61,7 @@ namespace esencia_logica
         }
         public int contarDigitos(int numero){
             int contador_digitos = 0;
+            numero = numero<0?numero*-1:numero;
             do
             {
             numero = numero/10;
@@ -58,6 +94,110 @@ namespace esencia_logica
                 sumando += numero;
             }
             return sumando;
+        }
+        public bool elNumeroEsMenorque(int numeroIngresar,int menorQueEsteNumero){
+            bool esMenor = false;
+            if(numeroIngresar < menorQueEsteNumero){
+                esMenor = true;
+            }else{
+                Console.WriteLine("El numero {0} ingresado es mayor que {1}",numeroIngresar,menorQueEsteNumero);
+            }
+            return esMenor;
+        }
+        public bool saberSiEsPrimo(int numeroIngresar){
+            bool esPrimo = false;
+            int conteoDivisores = 0;
+            numeroIngresar = numeroIngresar<0? numeroIngresar*-1:numeroIngresar;
+            for (int divisor = 1; divisor <= numeroIngresar; divisor++)
+            {
+                if(numeroIngresar%divisor == 0){
+                    conteoDivisores++;
+                }
+                if(conteoDivisores > 3){
+                    break;
+                }
+            }
+            if(conteoDivisores <=2){
+                esPrimo = true;
+            }
+            return esPrimo;
+        }
+        public bool esMultiplo(int numeroIngresado1,int numeroIngresado2){
+            int dividendo= Math.Max(numeroIngresado1,numeroIngresado2);
+            int divisor= Math.Min(numeroIngresado1,numeroIngresado2);
+            return dividendo%divisor == 0;
+        }
+        public int[] divisoresDe(int  numero){
+            List<int> numerosDivisores = new List<int>();
+            for (int divisor = 0; divisor < numero; divisor++)
+            {                
+                if(numero%divisor == 0){
+                    numerosDivisores.Add(divisor);
+                }
+            }
+            return numerosDivisores.ToArray();
+        }
+        public int[] factoresPrimosDe(int numero){
+            List<int> factores = new List<int>();
+            int divisor = 2;
+            do
+            {              
+                if(saberSiEsPrimo(divisor)){
+                    if(numero%divisor == 0){
+                        Console.WriteLine("numero:"+numero);  
+                        Console.WriteLine("divisor:"+divisor);
+                        factores.Add(divisor);
+                        numero /= divisor;
+                    }else{
+                        divisor++;
+                    }
+                } else{
+                    divisor++;
+                }    
+            } while (numero >1);
+        
+            return factores.ToArray();           
+        }
+        public int[] factoresPrimosDe(int[] numeros){
+            List<int> factores = new List<int>();
+            int divisor = 2;
+            while (some(numeros,(numero)=>numero >1) ){
+                    
+                if(saberSiEsPrimo(divisor) && some(numeros,(numero)=>numero%divisor == 0)){
+                    // foreach (var item in numeros)
+                    // {
+                    //     Console.WriteLine("item:"+item);
+                    // }
+                    // Console.WriteLine("divisor:"+divisor);
+                    factores.Add(divisor);
+                    numeros = mapConvertir(numeros,(numero)=> numero%divisor == 0? numero / divisor:numero);
+                }else{
+                    divisor++;
+                }    
+            }        
+            return factores.ToArray();           
+        }
+        public int reduce(int[] numeros,Func<int,int ,int> funcion){
+            int acumulado = numeros[0];
+            for (int numero = 1; numero < numeros.Length; numero++)
+            {
+                acumulado = funcion(acumulado,numeros[numero]);               
+            }
+            return acumulado;
+        }
+        public int minimoComunMultiplo(int[] numeros){
+            List<int> colecionfactores = new List<int>();
+            colecionfactores.AddRange(factoresPrimosDe(numeros));
+            Console.WriteLine("colecionfactores.ToArray()"+colecionfactores.ToArray());
+            return reduce(colecionfactores.ToArray(),(int a,int b)=>a*b);
+        }
+        public int encontrarNumeroMayor(int[] numeros){
+            int numeroMayor = numeros[0];
+            foreach (int numero in numeros)
+            {
+                numeroMayor = Math.Max(numero,numeroMayor);                
+            }
+            return numeroMayor;
         }
     }
 }

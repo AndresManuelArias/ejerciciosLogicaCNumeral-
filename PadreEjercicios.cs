@@ -6,6 +6,7 @@ namespace esencia_logica
     {
         public GestionDeDatos gestionDeDatos = new GestionDeDatos();
         public Libreria libreria = new Libreria();
+        public VistaTemplate vistaTemplate = new VistaTemplate();
         public void menu(){
             bool noPasar = false;
             do {
@@ -27,9 +28,27 @@ namespace esencia_logica
                     case 4:
                         ejercicio4();
                     break;
-                     case 5:
+                    case 5:
                         ejercicio5();
-                    break;                   
+                    break; 
+                    case 6:
+                        ejercicio6();
+                    break;  
+                    case 7:
+                        ejercicio7();
+                    break; 
+                    case 8:
+                        ejercicio8();
+                    break;
+                    case 9:
+                        ejercicio9();
+                    break;  
+                    case 10:
+                        ejercicio10();
+                    break;
+                    case 11:
+                        ejercicio11();
+                    break;                     
                     default:
                         Console.WriteLine("El dato escrito no se encuentra en la lista");
                         noPasar = true;
@@ -42,6 +61,12 @@ namespace esencia_logica
         public abstract void ejercicio3();
         public abstract void ejercicio4();
         public abstract void ejercicio5();
+        public abstract void ejercicio6();
+        public abstract void ejercicio7();
+        public abstract void ejercicio8();
+        public abstract void ejercicio9();
+        public abstract void ejercicio10();
+        public abstract void ejercicio11();
 
     }
 }
