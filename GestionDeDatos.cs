@@ -4,33 +4,27 @@ namespace esencia_logica
 {
     public class GestionDeDatos
     {
-        private Libreria libreria = new Libreria();
-        public bool numeroDosDigitos(int numero){
-            bool tieneDosDigitos = libreria.determinarSiTiene(numero,2);
+        static private Libreria libreria = new Libreria();
+        public Func<int,Func<int,bool>> numeroContieneEstosDigitos = (numeroDigitos)=> (numero)=> determinarSiTiene(numero,numeroDigitos);
+        static private bool determinarSiTiene(int numero,int cantidadDigitos){
+            bool tieneDosDigitos = libreria.determinarSiTiene(numero,cantidadDigitos);
             if(!tieneDosDigitos){
-                Console.WriteLine("El numero {0} no tiene dos digitos, por favor ingrese un numero de 2 digitos.",numero);
+                Console.WriteLine($"El numero {numero} no tiene {cantidadDigitos}  digitos, por favor ingrese un numero que tenga un tamaño de {cantidadDigitos}  digitos.");
             }
-            return tieneDosDigitos;
+            return   libreria.determinarSiTiene(numero,cantidadDigitos);
         }
         public int[] inputInt(int digitosPedir,Func<int, bool>[] funciones){
             int[] numerosIngresados = new int[digitosPedir];
             for (int numeroIngresado = 0; numeroIngresado < digitosPedir; numeroIngresado++)
             {
-                bool pasar = false;
+                bool noPasar = true;
+                int[] numeroRevisar ;
                 do
                 {
-                    Console.WriteLine("Introduzca el numero "+(numeroIngresado+1));
-                    numerosIngresados[numeroIngresado]=Convert.ToInt32(Console.ReadLine());
-                    int[] numeroRevisar = {numerosIngresados[numeroIngresado]};
-                    pasar =  libreria.every(numeroRevisar,funciones);
-                    // if(cantidadDigitos == 0 || libreria.contarDigitos(numerosIngresados[numeroIngresado]) == cantidadDigitos){
-                    //     pasar = true;
-                    // }else{
-                    //     pasar = false;
-                    //     Console.WriteLine("El numero debe tener {0} digitos para que sea valido, por favor vuelva a ingresar los datos",cantidadDigitos);
-                    // }
-                     
-                } while (!pasar);
+                    numeroRevisar =  pedirDato(numeroIngresado);
+                    noPasar =  libreria.every(numeroRevisar,funciones);
+                } while (!noPasar);
+                numerosIngresados[numeroIngresado] = numeroRevisar[0];
             }
             return numerosIngresados;
         }
@@ -39,13 +33,14 @@ namespace esencia_logica
             for (int numeroIngresado = 0; numeroIngresado < digitosPedir; numeroIngresado++)
             {
                 bool noPasar = true;
+                int[] numeroRevisar ;
                 do
                 {
-                    Console.WriteLine("Introduzca el numero "+(numeroIngresado+1));
-                    numerosIngresados[numeroIngresado]=Convert.ToInt32(Console.ReadLine());
-                    noPasar =  libreria.every(numerosIngresados,funcion);
-                     
+                    numeroRevisar =  pedirDato(numeroIngresado);
+                    noPasar =  libreria.every(numeroRevisar,funcion);
                 } while (!noPasar);
+                numerosIngresados[numeroIngresado] = numeroRevisar[0];
+
             }
             return numerosIngresados;
         }
@@ -58,6 +53,12 @@ namespace esencia_logica
 
             }
             return numerosIngresados;
+        }
+        public int[]  pedirDato(int orden){
+                Console.WriteLine("Introduzca el numero "+(orden+1));
+                int numeroIngresar=Convert.ToInt32(Console.ReadLine());
+                int[] numeroRevisar = {numeroIngresar};
+                return numeroRevisar;
         }
         
     }

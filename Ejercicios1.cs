@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace esencia_logica
 {
@@ -51,7 +52,7 @@ namespace esencia_logica
 */
     private void cuantoEsIgualSumaDigitos(){
         Console.WriteLine("4. Leer un número entero de dos dígitos y determinar a cuánto es igual la suma de sus dígitos.");
-        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroDosDigitos)[0];
+        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(2))[0];
         int[] digitos =  libreria.digitosDelNumero(numero);
         int sumaDeNumeros = libreria.sumar(digitos);
         Console.WriteLine("La suma de sus numeros es {0}",sumaDeNumeros);
@@ -65,7 +66,7 @@ namespace esencia_logica
 */
     public void determinarAmbosDigitosPares(){
         Console.WriteLine("5. Leer un número entero de dos dígitos y determinar si ambos dígitos son pares.");
-        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroDosDigitos)[0];
+        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(2))[0];
         int[] digitos =  libreria.digitosDelNumero(numero);
         bool digitosSonPares =  libreria.every(digitos,libreria.numeroEsPar);
         if(digitosSonPares){
@@ -81,7 +82,7 @@ namespace esencia_logica
 6. Leer un número entero de dos dígitos menor que 20 y determinar si es primo.*/
     public void numeroMenor20DeterminarSiEsPrimo(){
         Console.WriteLine("6. Leer un número entero de dos dígitos menor que 20 y determinar si es primo.");
-        Func<int, bool>[] condicion = {(int numero)=> gestionDeDatos.numeroDosDigitos(numero),(int numero)=> libreria.elNumeroEsMenorque(numero,20)};
+        Func<int, bool>[] condicion = {(int numero)=> gestionDeDatos.numeroContieneEstosDigitos(2)(numero),(int numero)=> libreria.elNumeroEsMenorque(numero,20)};
         int numero = gestionDeDatos.inputInt(1,condicion)[0];
         vistaTemplate.mostrarSiEsPrimo(numero);
     }
@@ -92,7 +93,7 @@ namespace esencia_logica
 7. Leer un número entero de dos dígitos y determinar si es primo y además si es negativo.*/
     public void determinarSiEsPrimoYNegativo(){
         Console.WriteLine("7. Leer un número entero de dos dígitos y determinar si es primo y además si es negativo.");
-        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroDosDigitos)[0];
+        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(2))[0];
         vistaTemplate.determinarSiEsNegativo(numero);
         vistaTemplate.mostrarSiEsPrimo(numero);
     }
@@ -103,7 +104,7 @@ namespace esencia_logica
 8. Leer un número entero de dos dígitos y determinar si sus dos dígitos son primos.*/
     public void siDosDigitosSonPrimos(){
         Console.WriteLine("8. Leer un número entero de dos dígitos y determinar si sus dos dígitos son primos.");
-        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroDosDigitos)[0];
+        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(2))[0];
         if(libreria.every(libreria.digitosDelNumero(numero),libreria.saberSiEsPrimo)){
             Console.WriteLine("Todos sus digitos son primos");
         }else{
@@ -117,7 +118,7 @@ namespace esencia_logica
 9. Leer un número entero de dos dígitos y determinar si un dígito es múltiplo del otro.*/
     public void unDigitoMultiploDeOtro(){
         Console.WriteLine("9. Leer un número entero de dos dígitos y determinar si un dígito es múltiplo del otro.");
-        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroDosDigitos)[0]; 
+        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(2))[0]; 
         int[] digitos = libreria.digitosDelNumero(numero);
         int multipoDelOtro = libreria.minimoComunMultiplo(digitos);
         Console.WriteLine("minimoComunMultiplo:"+multipoDelOtro);
@@ -134,9 +135,14 @@ namespace esencia_logica
 10. Leer un número entero de dos dígitos y determinar si los dos dígitos son iguales.*/
     public void determinarSiLosDosDigitosSonIguales(){
         Console.WriteLine("10. Leer un número entero de dos dígitos y determinar si los dos dígitos son iguales.");
-        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroDosDigitos)[0]; 
+        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(2))[0]; 
         int[] digitos = libreria.digitosDelNumero(numero);
-        if(digitos[0] == digitos[1]){
+        int [] numeroIguales = libreria.numerosIguales(digitos);
+        foreach (int digito in numeroIguales)
+        {
+            Console.WriteLine($"digito {digito}");        
+        }
+        if(numeroIguales.Length > 0){
             Console.WriteLine("Sus digitos son iguales");
         }else{
             Console.WriteLine("Sus digitos no son iguales");
@@ -157,14 +163,84 @@ namespace esencia_logica
         dosNumerosEnterosCualEsMayor();
     }  
 /*
-12. Leer dos números enteros de dos dígitos y determinar si tienen dígitos comunes.
+12. Leer dos números enteros de dos dígitos y determinar si tienen dígitos comunes.*/
+    public void determinarSiDosNUmerosTienenDigitosComunes(){
+        Console.WriteLine("12. Leer dos números enteros de dos dígitos y determinar si tienen dígitos comunes.");
+        int[] numeros = gestionDeDatos.inputInt(2,gestionDeDatos.numeroContieneEstosDigitos(2));
+        int[][] grupoDigitos = libreria.mapConvertir(numeros,(numero)=>libreria.digitosDelNumero(numero));
+        List<int> coleccion = new List<int>();
+        foreach (int[] numerosDigitos1 in grupoDigitos)
+        {
+            foreach (int[] numerosDigitos2 in libreria.filter(grupoDigitos,(digitos)=>!digitos.Equals(numerosDigitos1)))
+            {
+               coleccion.AddRange(libreria.filter( numerosDigitos1,(digito1)=>libreria.some( numerosDigitos2 ,(digito2) => digito1 == digito2)));         
+            }
+        }
+        coleccion.ForEach(a => Console.WriteLine(" coleccion: {0}",a));
+        if(coleccion.ToArray().Length > 1){
+            Console.WriteLine("Contiene digitos comunes ");
+        }else{
+            Console.WriteLine("No contiene digitos comunes ");
+        }
+    }
+    public override void ejercicio12(){
+        determinarSiDosNUmerosTienenDigitosComunes();
+    }  
+/*
 13. Leer dos números enteros de dos dígitos y determinar si la suma de los dos números origina
-un número par.
-14. Leer dos números enteros de dos dígitos y determinar a cuánto es igual la suma de todos los
-dígitos.
-15. Leer un número entero de tres dígitos y determinar a cuánto es igual la suma de sus dígitos.
-16. Leer un número entero de tres dígitos y determinar si al menos dos de sus tres dígitos son
-iguales.
+un número par.*/
+    public void leerDosNumerosSumarDecirSiEsPar(){
+        Console.WriteLine("13. Leer dos números enteros de dos dígitos y determinar si la suma de los dos números origina un número par.");
+        int[] numeros = gestionDeDatos.inputInt(2,gestionDeDatos.numeroContieneEstosDigitos(2));
+        if(libreria.numeroEsPar(libreria.sumar(numeros))){
+            Console.WriteLine("La suma de sus digitos es par");
+        }else{
+            Console.WriteLine("La suma de sus digitos no es par");
+        }
+    }
+    public override void ejercicio13(){
+        leerDosNumerosSumarDecirSiEsPar();
+    }  
+/*
+14. Leer dos números enteros de dos dígitos y determinar a cuánto es igual la suma de todos los dígitos.*/
+    public void laSumaDeSusDigitosEs(){
+        Console.WriteLine("14. Leer dos números enteros de dos dígitos y determinar a cuánto es igual la suma de todos los dígitos.");
+        int[] numeros = gestionDeDatos.inputInt(2,gestionDeDatos.numeroContieneEstosDigitos(2));
+        int[][] grupoDigitos = libreria.mapConvertir(numeros,(numero)=>libreria.digitosDelNumero(numero));
+        int sumarDigitos = libreria.sumar(grupoDigitos);
+        Console.WriteLine($"La suma de sus digitos es {sumarDigitos}");             
+    }
+    public override void ejercicio14(){
+        laSumaDeSusDigitosEs();
+    } 
+/*
+15. Leer un número entero de tres dígitos y determinar a cuánto es igual la suma de sus dígitos.*/
+
+    public override void ejercicio15(){
+        Console.WriteLine("15. Leer un número entero de tres dígitos y determinar a cuánto es igual la suma de sus dígitos.");
+        int[] numeros = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(3));
+        int[][] grupoDigitos = libreria.mapConvertir(numeros,(numero)=>libreria.digitosDelNumero(numero));
+        int sumarDigitos = libreria.sumar(grupoDigitos);
+        Console.WriteLine($"La suma de sus digitos es {sumarDigitos}");  
+    } 
+/*
+16. Leer un número entero de tres dígitos y determinar si al menos dos de sus tres dígitos son iguales.*/
+    public override void ejercicio16(){
+        Console.WriteLine("16. Leer un número entero de tres dígitos y determinar si al menos dos de sus tres dígitos son iguales.");
+            int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(5))[0]; 
+            int[] digitos = libreria.digitosDelNumero(numero);
+            int [] numeroIguales = libreria.numerosIguales(digitos);
+            foreach (int digito in numeroIguales)
+            {
+                Console.WriteLine($"digito {digito}");        
+            }
+            if(numeroIguales.Length > 1){
+                Console.WriteLine("Sus digitos son iguales");
+            }else{
+                Console.WriteLine("Sus digitos no son iguales");
+            }    
+    }
+/*
 17. Leer un número entero de tres dígitos y determinar en qué posición está el mayor dígito.
 18. Leer un número entero de tres dígitos y determinar si algún dígito es múltiplo de los otros.
 19. Leer tres números enteros y determinar cuál es el mayor. Usar solamente dos variables.

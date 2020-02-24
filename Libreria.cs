@@ -11,8 +11,33 @@ namespace esencia_logica
         public bool numeroEsPar(int numero){
             return numero%2==0;
         }
+        public int[] numerosIguales(int[] numeros){
+            List<int> coleccion = new List<int>();
+            foreach (int numero1 in numeros)
+            {
+                int repeticiones = 0;
+                foreach (int numero2 in numeros)
+                {
+                    if(numero1 == numero2){
+                        repeticiones++;
+                        if(repeticiones > 1){
+                            coleccion.Add(numero1);
+                        }
+                    }
+                }
+            }
+            return coleccion.ToArray();
+        }
         public int[] mapConvertir(int[] numeros,Func<int, int> funcion){
             List<int> numerosConertidos = new List<int>();
+            foreach (var numero in numeros)
+            {
+                numerosConertidos.Add(funcion(numero));
+            }
+            return numerosConertidos.ToArray();
+        }
+        public int[][] mapConvertir(int[] numeros,Func<int, int[]> funcion){
+            List<int[]> numerosConertidos = new List<int[]>();
             foreach (var numero in numeros)
             {
                 numerosConertidos.Add(funcion(numero));
@@ -29,6 +54,26 @@ namespace esencia_logica
                 }
             }
             return cumple;            
+        }
+        public int[] filter(int[] numeros,Func<int, bool> funcion){
+            List<int> coleccion = new List<int>();
+            foreach (int numero in numeros)
+            {
+                if(funcion(numero)){
+                    coleccion.Add(numero);
+                }              
+            }
+            return coleccion.ToArray();
+        }
+        public int[][] filter(int[][] numeros,Func<int[], bool> funcion){
+            List<int[]> coleccion = new List<int[]>();
+            foreach (int[] numero in numeros)
+            {
+                if(funcion(numero)){
+                    coleccion.Add(numero);
+                }              
+            }
+            return coleccion.ToArray();
         }
         public bool every(int[] numeros,Func<int, bool>[] funciones){
             bool cumple = true;
@@ -92,6 +137,14 @@ namespace esencia_logica
             foreach (int numero in numeros)
             {
                 sumando += numero;
+            }
+            return sumando;
+        }
+        public int sumar( int [][] numeros){
+            int sumando = 0;
+            foreach (int[] numero in numeros)
+            {
+                sumando += sumar(numero);
             }
             return sumando;
         }
@@ -164,11 +217,7 @@ namespace esencia_logica
             while (some(numeros,(numero)=>numero >1) ){
                     
                 if(saberSiEsPrimo(divisor) && some(numeros,(numero)=>numero%divisor == 0)){
-                    // foreach (var item in numeros)
-                    // {
-                    //     Console.WriteLine("item:"+item);
-                    // }
-                    // Console.WriteLine("divisor:"+divisor);
+
                     factores.Add(divisor);
                     numeros = mapConvertir(numeros,(numero)=> numero%divisor == 0? numero / divisor:numero);
                 }else{
