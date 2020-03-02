@@ -55,6 +55,21 @@ namespace esencia_logica
             }
             return cumple;            
         }
+        public int finIndex(int[] numeros,Func<int, bool> funcion ){
+            int  indice = -1;            
+            for (int numero = 0; numero < numeros.Length; numero++)
+            {
+                if(funcion(numeros[numero]) == true){
+                    indice = numero;
+                    break;
+                }
+            }
+            return indice;            
+        }
+        public int fin(int[] numeros,Func<int, bool> funcion ){
+          int indice =  finIndex(numeros,funcion);
+          return numeros[indice];
+        }
         public int[] filter(int[] numeros,Func<int, bool> funcion){
             List<int> coleccion = new List<int>();
             foreach (int numero in numeros)
@@ -234,6 +249,14 @@ namespace esencia_logica
             }
             return acumulado;
         }
+        public int[] reduce(int[][] numeros,Func<int[],int[] ,int[]> funcion){
+            int[] acumulado = numeros[0];
+            for (int numero = 1; numero < numeros.Length; numero++)
+            {
+                acumulado = funcion(acumulado,numeros[numero]);               
+            }
+            return acumulado;
+        }
         public int minimoComunMultiplo(int[] numeros){
             List<int> colecionfactores = new List<int>();
             colecionfactores.AddRange(factoresPrimosDe(numeros));
@@ -247,6 +270,13 @@ namespace esencia_logica
                 numeroMayor = Math.Max(numero,numeroMayor);                
             }
             return numeroMayor;
+        }
+        public void DisplayValues(int[] numeros)  
+        {
+            for ( int i = 0 ;i < numeros.Length;i++ )  {
+                Console.WriteLine( "   [{0}] : {1}", i, numeros[i] );
+            }
+            Console.WriteLine();
         }
     }
 }

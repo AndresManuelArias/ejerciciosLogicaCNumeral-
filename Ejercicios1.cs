@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
+
 
 namespace esencia_logica
 {
@@ -227,7 +230,7 @@ un número par.*/
 16. Leer un número entero de tres dígitos y determinar si al menos dos de sus tres dígitos son iguales.*/
     public override void ejercicio16(){
         Console.WriteLine("16. Leer un número entero de tres dígitos y determinar si al menos dos de sus tres dígitos son iguales.");
-            int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(5))[0]; 
+            int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(3))[0]; 
             int[] digitos = libreria.digitosDelNumero(numero);
             int [] numeroIguales = libreria.numerosIguales(digitos);
             foreach (int digito in numeroIguales)
@@ -241,23 +244,69 @@ un número par.*/
             }    
     }
 /*
-17. Leer un número entero de tres dígitos y determinar en qué posición está el mayor dígito.
-18. Leer un número entero de tres dígitos y determinar si algún dígito es múltiplo de los otros.
-19. Leer tres números enteros y determinar cuál es el mayor. Usar solamente dos variables.
-20. Leer tres números enteros y mostrarlos ascendentemente.La Esencia de la Lógica de Programación – Omar Ivan Trejos Buriticá
-139
-21. Leer tres números enteros de dos dígitos cada uno y determinar en cuál de ellos se encuentra
-el mayor dígito.
+17. Leer un número entero de tres dígitos y determinar en qué posición está el mayor dígito.*/
+    public override void ejercicio17(){
+        Console.WriteLine("17. Leer un número entero de tres dígitos y determinar en qué posición está el mayor dígito.");
+        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(3))[0]; 
+        int[] digitos = libreria.digitosDelNumero(numero);
+        int numeroMayor = libreria.encontrarNumeroMayor(digitos);
+        int indiceNumeroMayor = libreria.finIndex(digitos,(digito)=> digito ==numeroMayor);
+        Console.WriteLine($"Indice numero mayor es {indiceNumeroMayor}");
+
+    }
+/*
+18. Leer un número entero de tres dígitos y determinar si algún dígito es múltiplo de los otros.*/
+    public override void ejercicio18(){
+        Console.WriteLine("18. Leer un número entero de tres dígitos y determinar si algún dígito es múltiplo de los otros.");
+        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(3))[0]; 
+        int[] digitos = libreria.digitosDelNumero(numero);
+        int multipoDelOtro = libreria.minimoComunMultiplo(digitos);
+        Console.WriteLine("minimoComunMultiplo:"+multipoDelOtro);
+        if(libreria.some(digitos,(numero)=> numero==multipoDelOtro)){
+            Console.WriteLine("Un numero es multiplo del otro");
+        }else{
+            Console.WriteLine("Ningun numero es multiplo del otro");
+        }
+    }
+/*
+19. Leer tres números enteros y determinar cuál es el mayor. Usar solamente dos variables.*/
+    public override void ejercicio19(){
+        Console.WriteLine("9. Leer tres números enteros y determinar cuál es el mayor. Usar solamente dos variables.");
+        int[] numeros = gestionDeDatos.inputInt(3); 
+        int numeroMayor =  libreria.encontrarNumeroMayor(numeros);
+        Console.WriteLine("Numero mayor es "+numeroMayor);
+    }
+ /*
+20. Leer tres números enteros y mostrarlos ascendentemente.*/
+    public override void ejercicio20(){
+        Console.WriteLine("20. Leer tres números enteros y mostrarlos ascendentemente.");
+        int[] numeros = gestionDeDatos.inputInt(3);
+        Array.Sort(numeros);
+        Console.WriteLine( "numeros ordenados");
+        libreria.DisplayValues(numeros);
+    }
+
+/*
+21. Leer tres números enteros de dos dígitos cada uno y determinar en cuál de ellos se encuentra el mayor dígito.*/
+    public override void ejercicio21(){
+        Console.WriteLine("21. Leer tres números enteros de dos dígitos cada uno y determinar en cuál de ellos se encuentra el mayor dígito.");
+        int[] numeros = gestionDeDatos.inputInt(3,gestionDeDatos.numeroContieneEstosDigitos(2));
+        int[][] todosDigitos = libreria.mapConvertir(numeros,(numero)=> libreria.digitosDelNumero(numero) );
+        int[] reducer = libreria.reduce(todosDigitos,(acumulado, digitos)=> acumulado.Concat(digitos).ToArray());
+        libreria.DisplayValues(reducer);
+        int numeroMayor =  libreria.encontrarNumeroMayor(reducer);
+        int quienTieneDigitoMayor =  libreria.fin(numeros,(numero)=>libreria.some(libreria.digitosDelNumero(numero),(digito)=>digito == numeroMayor));
+        Console.WriteLine($"el que tiene el digito mayor es {quienTieneDigitoMayor}");
+    }
+/*
 22. Leer un número entero de tres dígitos y determinar si el primer dígito es igual al último.
 23. Leer un número entero de tres dígitos y determinar cuántos dígitos primos tiene.
 24. Leer un número entero de tres dígitos y determinar cuántos dígitos pares tiene.
-25. Leer un número entero de tres dígitos y determinar si alguno de sus dígitos es igual a la suma
-de los otros dos.
+25. Leer un número entero de tres dígitos y determinar si alguno de sus dígitos es igual a la suma de los otros dos.
 26. Leer un número entero de cuatro dígitos y determinar a cuanto es igual la suma de sus dígitos.
 27. Leer un número entero de cuatro dígitos y determinar cuántos dígitos pares tiene.
 28. Leer un número entero menor que 50 y positivo y determinar si es un número primo.
-29. Leer un número entero de cinco dígitos y determinar si es un número capicúo. Ej. 15651,
-59895.
+29. Leer un número entero de cinco dígitos y determinar si es un número capicúo. Ej. 15651,59895.
 30. Leer un número entero de cuatro dígitos y determinar si el segundo dígito es igual al penúltimo.
 31. Leer un número entero y determina si es igual a 10.
 32. Leer un número entero y determinar si es múltiplo de 7.
