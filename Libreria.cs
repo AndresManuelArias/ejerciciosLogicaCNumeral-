@@ -44,6 +44,16 @@ namespace esencia_logica
             }
             return numerosConertidos.ToArray();
         }
+        public int countIf(int[] numeros,Func<int, bool> funcion){
+            int  conteo = 0;
+            for (int numero = 0; numero < numeros.Length; numero++)
+            {
+                if(funcion(numeros[numero]) == true){
+                    conteo++;
+                }
+            }
+            return conteo;            
+        }
         public bool some(int[] numeros,Func<int, bool> funcion){
             bool  cumple = false;
             for (int numero = 0; numero < numeros.Length; numero++)

@@ -271,7 +271,7 @@ un número par.*/
 /*
 19. Leer tres números enteros y determinar cuál es el mayor. Usar solamente dos variables.*/
     public override void ejercicio19(){
-        Console.WriteLine("9. Leer tres números enteros y determinar cuál es el mayor. Usar solamente dos variables.");
+        Console.WriteLine("19. Leer tres números enteros y determinar cuál es el mayor. Usar solamente dos variables.");
         int[] numeros = gestionDeDatos.inputInt(3); 
         int numeroMayor =  libreria.encontrarNumeroMayor(numeros);
         Console.WriteLine("Numero mayor es "+numeroMayor);
@@ -299,9 +299,38 @@ un número par.*/
         Console.WriteLine($"el que tiene el digito mayor es {quienTieneDigitoMayor}");
     }
 /*
-22. Leer un número entero de tres dígitos y determinar si el primer dígito es igual al último.
-23. Leer un número entero de tres dígitos y determinar cuántos dígitos primos tiene.
-24. Leer un número entero de tres dígitos y determinar cuántos dígitos pares tiene.
+22. Leer un número entero de tres dígitos y determinar si el primer dígito es igual al último.*/
+    public override void ejercicio22(){
+        Console.WriteLine("22. Leer un número entero de tres dígitos y determinar si el primer dígito es igual al último.");
+        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(3))[0];
+        int[] digito = libreria.digitosDelNumero(numero);
+        if(digito[0] == digito[2]){
+            Console.WriteLine("Los numero son iguales.");
+        }else{
+            Console.WriteLine("Los numero son diferentes.");
+
+        }
+    }
+
+/*
+23. Leer un número entero de tres dígitos y determinar cuántos dígitos primos tiene.*/
+    public override void ejercicio23(){
+        Console.WriteLine("23. Leer un número entero de tres dígitos y determinar cuántos dígitos primos tiene.");
+        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(3))[0];
+        int[] digitos = libreria.digitosDelNumero(numero);
+        int conteoPrimos = libreria.countIf(digitos, libreria.saberSiEsPrimo);
+        Console.WriteLine($"el numero {numero} tiene {conteoPrimos} digitos primos");
+    }
+/*
+24. Leer un número entero de tres dígitos y determinar cuántos dígitos pares tiene.*/
+    public override void ejercicio24(){
+         Console.WriteLine("24. Leer un número entero de tres dígitos y determinar cuántos dígitos pares tiene.");
+        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(3))[0];
+        int[] digitos = libreria.digitosDelNumero(numero);
+        int conteoPares = libreria.countIf(digitos, libreria.numeroEsPar);
+        Console.WriteLine($"el numero {numero} tiene {conteoPares} digitos pares");       
+    }
+/*
 25. Leer un número entero de tres dígitos y determinar si alguno de sus dígitos es igual a la suma de los otros dos.
 26. Leer un número entero de cuatro dígitos y determinar a cuanto es igual la suma de sus dígitos.
 27. Leer un número entero de cuatro dígitos y determinar cuántos dígitos pares tiene.
