@@ -87,7 +87,22 @@ namespace esencia_logica
                     break;  
                     case 24:
                         ejercicio24();
-                    break;    
+                    break;  
+                    case 25:
+                        ejercicio25();
+                    break;  
+                    case 26:
+                        ejercicio26();
+                    break;  
+                    case 27:
+                        ejercicio27();
+                    break;  
+                    case 28:
+                        ejercicio28();
+                    break;
+                    case 29:
+                        ejercicio29();
+                    break; 
                     default:
                         Console.WriteLine("El dato escrito no se encuentra en la lista");
                         noPasar = true;
@@ -119,6 +134,11 @@ namespace esencia_logica
         public abstract void ejercicio22();
         public abstract void ejercicio23();
         public abstract void ejercicio24();
+        public abstract void ejercicio25();
+        public abstract void ejercicio26();
+        public abstract void ejercicio27();
+        public abstract void ejercicio28();
+        public abstract void ejercicio29();
 
     }
 }

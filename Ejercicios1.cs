@@ -331,12 +331,63 @@ un número par.*/
         Console.WriteLine($"el numero {numero} tiene {conteoPares} digitos pares");       
     }
 /*
-25. Leer un número entero de tres dígitos y determinar si alguno de sus dígitos es igual a la suma de los otros dos.
-26. Leer un número entero de cuatro dígitos y determinar a cuanto es igual la suma de sus dígitos.
-27. Leer un número entero de cuatro dígitos y determinar cuántos dígitos pares tiene.
-28. Leer un número entero menor que 50 y positivo y determinar si es un número primo.
-29. Leer un número entero de cinco dígitos y determinar si es un número capicúo. Ej. 15651,59895.
-30. Leer un número entero de cuatro dígitos y determinar si el segundo dígito es igual al penúltimo.
+25. Leer un número entero de tres dígitos y determinar si alguno de sus dígitos es igual a la suma de los otros dos.*/
+    public override void ejercicio25(){
+         Console.WriteLine("25. Leer un número entero de tres dígitos y determinar si alguno de sus dígitos es igual a la suma de los otros dos.");
+        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(3))[0];
+        int[] digitos = libreria.digitosDelNumero(numero);
+        if(libreria.some(digitos,(digito,indice)=>libreria.sumarSi(digitos, (d,i)=> i!=indice)==digito)){
+            Console.WriteLine($"un digito es la suma de los otros digitos");       
+        }else{
+            Console.WriteLine($"ningun digito es la suma de los otros digitos");       
+        }
+    }
+/*
+26. Leer un número entero de cuatro dígitos y determinar a cuanto es igual la suma de sus dígitos.*/
+    public override  void ejercicio26(){
+        Console.WriteLine("26. Leer un número entero de cuatro dígitos y determinar a cuanto es igual la suma de sus dígitos.");
+        int[] numeros = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(4));
+        int[][] grupoDigitos = libreria.mapConvertir(numeros,(numero)=>libreria.digitosDelNumero(numero));
+        int sumarDigitos = libreria.sumar(grupoDigitos);
+        Console.WriteLine($"La suma de sus digitos es {sumarDigitos}"); 
+    }
+/*
+27. Leer un número entero de cuatro dígitos y determinar cuántos dígitos pares tiene.*/
+    public override void ejercicio27(){
+        Console.WriteLine("27. Leer un número entero de cuatro dígitos y determinar cuántos dígitos pares tiene.");
+        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(4))[0];
+        int[] digitos = libreria.digitosDelNumero(numero);
+        int conteoPares = libreria.countIf(digitos, libreria.numeroEsPar);
+        Console.WriteLine($"el numero {numero} tiene {conteoPares} digitos pares");
+    }
+/*
+28. Leer un número entero menor que 50 y positivo y determinar si es un número primo.*/
+    public override void ejercicio28(){
+        Console.WriteLine("28. Leer un número entero menor que 50 y positivo y determinar si es un número primo.");
+        int numero = gestionDeDatos.inputInt(1,(numero)=>numero>=0 && numero<=50)[0];
+        if(libreria.saberSiEsPrimo(numero)){
+            Console.WriteLine("El numero es primo");
+        }else{
+            Console.WriteLine("El numero no es primo");
+        }
+    }
+/*
+29. Leer un número entero de cinco dígitos y determinar si es un número capicúo. Ej. 15651,59895.*/
+    public override void ejercicio29(){// arreglar
+        Console.WriteLine("29. Leer un número entero de cinco dígitos y determinar si es un número capicúo. Ej. 15651,59895");
+        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(5))[0];
+        int[] digitos = libreria.digitosDelNumero(numero);
+        int cantidadDigitos = digitos.Length-1;
+        if(libreria.every(digitos,(digito)=>digito==digitos[cantidadDigitos--])){
+            Console.WriteLine("El numero es capicúo");
+        }else{
+            Console.WriteLine("El numero no es capicúo");
+        }
+    }
+/*
+30. Leer un número entero de cuatro dígitos y determinar si el segundo dígito es igual al penúltimo.*/
+
+/*
 31. Leer un número entero y determina si es igual a 10.
 32. Leer un número entero y determinar si es múltiplo de 7.
 33. Leer un número entero y determinar si termina en 7.

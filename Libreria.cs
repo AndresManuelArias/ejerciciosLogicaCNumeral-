@@ -54,6 +54,17 @@ namespace esencia_logica
             }
             return conteo;            
         }
+        public bool some(int[] numeros,Func<int,int, bool> funcion){
+            bool  cumple = false;
+            for (int numero = 0; numero < numeros.Length; numero++)
+            {
+                if(funcion(numeros[numero],numero) == true){
+                    cumple = true;
+                    break;
+                }
+            }
+            return cumple;            
+        }
         public bool some(int[] numeros,Func<int, bool> funcion){
             bool  cumple = false;
             for (int numero = 0; numero < numeros.Length; numero++)
@@ -156,6 +167,41 @@ namespace esencia_logica
                 // Console.WriteLine("numero:{0} coleccionadorDigitos[digito] {1}",numeroIngresar,coleccionadorDigitos[digito]);                 
             }
             return coleccionadorDigitos;
+        }
+        public int sumarSi(int[] numeros,Func<int,int, bool> funciones){
+            int sumando = 0;
+            for (int indice = 0; indice < numeros.Length; indice++)
+            {
+                if(funciones(numeros[indice],indice)){
+                    sumando += numeros[indice];            
+                }
+            }
+            return sumando;
+        }
+        public int sumarSi(int[] numeros,Func<int, bool> funciones){
+            int sumando = 0;
+            foreach (int numero in numeros)
+            {
+                if(funciones(numero)){
+                    sumando += numero;            
+                }
+            }
+            return sumando;
+        }
+        public float div( int [] numeros,bool orden = true){
+            float dividido = 0;
+            if(orden){
+                for (int indice = 0; indice < numeros.Length; indice++)
+                {
+                    dividido /= numeros[indice];            
+                }
+            }else{
+                for (int indice = numeros.Length-1; indice >= 0; indice--)
+                {
+                    dividido /= numeros[indice];            
+                }
+            }
+            return dividido;
         }
         public int sumar( int [] numeros){
             int sumando = 0;
