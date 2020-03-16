@@ -102,7 +102,40 @@ namespace esencia_logica
                     break;
                     case 29:
                         ejercicio29();
+                    break;
+                    case 30:
+                        ejercicio30();
                     break; 
+                    case 31:
+                        ejercicio31();
+                    break;  
+                    case 32:
+                        ejercicio32();
+                    break; 
+                    case 33:
+                        ejercicio33();
+                    break;
+                    case 34:
+                        ejercicio34();
+                    break; 
+                    case 35:
+                        ejercicio35();
+                    break; 
+                    case 36:
+                        ejercicio36();
+                    break;
+                    case 37:
+                        ejercicio37();
+                    break; 
+                    case 38:
+                        ejercicio38();
+                    break; 
+                    case 39:
+                        ejercicio39();
+                    break;
+                    case 40:
+                        ejercicio40();
+                    break;   
                     default:
                         Console.WriteLine("El dato escrito no se encuentra en la lista");
                         noPasar = true;
@@ -139,6 +172,17 @@ namespace esencia_logica
         public abstract void ejercicio27();
         public abstract void ejercicio28();
         public abstract void ejercicio29();
+        public abstract void ejercicio30();
+        public abstract void ejercicio31();
+        public abstract void ejercicio32();
+        public abstract void ejercicio33();
+        public abstract void ejercicio34();
+        public abstract void ejercicio35();
+        public abstract void ejercicio36();
+        public abstract void ejercicio37();
+        public abstract void ejercicio38();
+        public abstract void ejercicio39();
+        public abstract void ejercicio40();
 
     }
 }

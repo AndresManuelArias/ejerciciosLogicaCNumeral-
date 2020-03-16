@@ -373,7 +373,7 @@ un número par.*/
     }
 /*
 29. Leer un número entero de cinco dígitos y determinar si es un número capicúo. Ej. 15651,59895.*/
-    public override void ejercicio29(){// arreglar
+    public override void ejercicio29(){
         Console.WriteLine("29. Leer un número entero de cinco dígitos y determinar si es un número capicúo. Ej. 15651,59895");
         int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(5))[0];
         int[] digitos = libreria.digitosDelNumero(numero);
@@ -386,22 +386,142 @@ un número par.*/
     }
 /*
 30. Leer un número entero de cuatro dígitos y determinar si el segundo dígito es igual al penúltimo.*/
+    public override void ejercicio30(){
+        Console.WriteLine("30. Leer un número entero de cuatro dígitos y determinar si el segundo dígito es igual al penúltimo.");
+        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(4))[0];
+        int[] digitos = libreria.digitosDelNumero(numero);
+        int cantidadDigitos = digitos.Length-1; 
+        if(digitos[1]==digitos[cantidadDigitos-1]){
+            Console.WriteLine("El segundo digito es igual al penuntimo.");
+        }else{
+            Console.WriteLine("El segundo digito no es igual al penuntimo.");
+        }
+    }
+/*
+
+31. Leer un número entero y determina si es igual a 10.*/
+    public override void ejercicio31(){
+        Console.WriteLine("31. Leer un número entero y determina si es igual a 10.");
+        int numero = gestionDeDatos.inputInt(1)[0];
+        String resultado = numero==10?"igual a diez":"no es igual a diez";
+        Console.WriteLine($"el numero ingresado {resultado}");
+      
+    }
 
 /*
-31. Leer un número entero y determina si es igual a 10.
-32. Leer un número entero y determinar si es múltiplo de 7.
-33. Leer un número entero y determinar si termina en 7.
-34. Leer un número entero menor que mil y determinar cuántos dígitos tiene.
+32. Leer un número entero y determinar si es múltiplo de 7.*/
+    public override void ejercicio32(){
+        Console.WriteLine("32. Leer un número entero y determinar si es múltiplo de 7.");
+        int numero = gestionDeDatos.inputInt(1)[0];
+        String resultado = numero%7==0?"es multiplo de 7":"no es multiplo de 7";
+        Console.WriteLine($"el numero ingresado {resultado}");
+      
+    }
+/*
+33. Leer un número entero y determinar si termina en 7.*/
+    public override void ejercicio33(){
+        Console.WriteLine("33. Leer un número entero y determinar si termina en 7.");
+        int numero = gestionDeDatos.inputInt(1)[0];
+        int[] digitos = libreria.digitosDelNumero(numero);
+        String resultado = digitos[0] == 7?"termina en 7":"no termina en 7";
+        Console.WriteLine($"el numero ingresado {resultado}");
+      
+    }
+/*
+34. Leer un número entero menor que mil y determinar cuántos dígitos tiene.*/
+    public override void ejercicio34(){
+        Console.WriteLine("34. Leer un número entero menor que mil y determinar cuántos dígitos tiene.");
+        int numero = gestionDeDatos.inputInt(1,(n)=> n<1000 &&  n>=0)[0];
+        int[] digitos = libreria.digitosDelNumero(numero);
+        int numeroDigitos = digitos.Length;
+        Console.WriteLine($"el numero ingresado tiene {numeroDigitos} digitos");
+      
+    }
+/*
 35. Leer un número entero de dos dígitos, guardar cada dígito en una variable diferente y luego
-mostrarlas en pantalla.
-36. Leer un número entero de 4 dígitos y determinar si tiene mas dígitos pares o impares.
-37. Leer dos números enteros y determinar cuál es múltiplo de cuál.140
-Capítulo 7 - Decisiones
-38. Leer tres números enteros y determinar si el último dígito de los tres números es igual.
-39. Leer tres números enteros y determina si el penúltimo dígito de los tres números es igual.
+mostrarlas en pantalla.*/
+    public override void ejercicio35(){
+        Console.WriteLine("35. Leer un número entero de dos dígitos, guardar cada dígito en una variable diferente y luego mostrarlas en pantalla.");
+        int[] numeros = gestionDeDatos.inputInt(2);
+        foreach (int numero in numeros)
+        {
+            int[] digitos = libreria.digitosDelNumero(numero);
+            Console.WriteLine("Los digitos del numero son");
+            libreria.DisplayValues(digitos);
+        }
+      
+    }
+/*
+36. Leer un número entero de 4 dígitos y determinar si tiene mas dígitos pares o impares.*/
+    public override void ejercicio36(){     
+        Console.WriteLine("36. Leer un número entero de 4 dígitos y determinar si tiene mas dígitos pares o impares.");
+        int numero = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(4))[0];
+        int[] digitos = libreria.digitosDelNumero(numero);
+        int contarPares = libreria.countIf(digitos,(digito)=> libreria.numeroEsPar(digito));
+        int contarImpares = libreria.countIf(digitos,(digito)=> !libreria.numeroEsPar(digito));
+        if(contarPares > contarImpares ){
+            Console.WriteLine("contiene mas pares que impares");
+        }else if(contarPares < contarImpares ){
+            Console.WriteLine("contiene mas impares que pares");
+        }else{
+            Console.WriteLine("Contiene la misma cantidad de pares e impares");
+        }
+    }
+/*
+37. Leer dos números enteros y determinar cuál es múltiplo de cuál.*/
+    public override void ejercicio37(){     
+        Console.WriteLine("37. Leer dos números enteros y determinar cuál es múltiplo de cuál.");
+        int[] numero = gestionDeDatos.inputInt(2);
+        if(numero[0]%numero[1] == 0){
+            Console.WriteLine($"El numero {numero[0]} es multiplo de el numero {numero[1]}.");
+        }else if(numero[1]%numero[0] == 0){
+            Console.WriteLine($"El numero {numero[1]} es multiplo de el numero {numero[0]}.");
+        }
+    }
+ /*
+38. Leer tres números enteros y determinar si el último dígito de los tres números es igual.*/
+    public override void ejercicio38(){     
+        Console.WriteLine("38. Leer tres números enteros y determinar si el último dígito de los tres números es igual.");
+        int[] numeros = gestionDeDatos.inputInt(3);
+        int ultimoDigito = libreria.digitosDelNumero(numeros[0])[0];
+        if(libreria.every(numeros,(numero)=> libreria.digitosDelNumero(numero)[0] == ultimoDigito)){
+            Console.WriteLine("El ultimo de digito de los tres digitos es igual");
+        }else{
+            Console.WriteLine("El ultimo de digito de los tres digitos no es igual");
+        }
+    }
+/*
+39. Leer tres números enteros y determina si el penúltimo dígito de los tres números es igual.*/ 
+    public override void ejercicio39(){     
+        Console.WriteLine("39. Leer tres números enteros y determina si el penúltimo dígito de los tres números es igual.");
+        int[] numeros = gestionDeDatos.inputInt(3);
+        int cantidadDigitos = libreria.digitosDelNumero(numeros[0]).Length;
+        int penUltimoDigito = libreria.digitosDelNumero(numeros[0])[cantidadDigitos>1?1:0];
+        if(libreria.every(numeros,(numero)=> 
+            libreria.digitosDelNumero(numero)[libreria.digitosDelNumero(numeros[0]).Length>1?1:0] == penUltimoDigito)){
+            Console.WriteLine("El penultimo de digito de los tres digitos es igual");
+        }else{
+            Console.WriteLine("El penultimo de digito de los tres digitos no es igual");
+        }
+    }
+/*
 40. Leer dos números enteros y si la diferencia entre los dos es menor o igual a 10 entonces
 mostrar en pantalla todos los enteros comprendidos entre el menor y el mayor de los números
-leídos.
+leídos.*/
+    public override void ejercicio40(){     
+        Console.WriteLine("40. Leer dos números enteros y si la diferencia entre los dos es menor o igual a 10 entonces mostrar en pantalla todos los enteros comprendidos entre el menor y el mayor de los números leídos.");
+        int[] numeros = gestionDeDatos.inputInt(2);
+        int diferencia = Math.Abs(numeros[0]-numeros[1]);
+        if(diferencia <= 10){
+            int menor = libreria.reduce(numeros,Math.Min);
+            int mayor = libreria.reduce(numeros,Math.Max);
+            for ( ; menor <= mayor; menor++)
+            {
+                Console.WriteLine("imprimiendo "+menor);
+            }
+        }
+    }
+/*
 41. Leer dos números enteros y determinar si la diferencia entre los dos es un número primo.
 42. Leer dos números enteros y determinar si la diferencia entre los dos es un número par.
 43. Leer dos números enteros y determinar si la diferencia entre los dos es un número divisor
