@@ -522,16 +522,69 @@ leídos.*/
         }
     }
 /*
-41. Leer dos números enteros y determinar si la diferencia entre los dos es un número primo.
-42. Leer dos números enteros y determinar si la diferencia entre los dos es un número par.
-43. Leer dos números enteros y determinar si la diferencia entre los dos es un número divisor
-exacto de alguno de los dos números.
+41. Leer dos números enteros y determinar si la diferencia entre los dos es un número primo.*/
+    public override void ejercicio41(){     
+        Console.WriteLine("41. Leer dos números enteros y determinar si la diferencia entre los dos es un número primo.");
+        int[] numeros = gestionDeDatos.inputInt(2);
+        int diferencia =  Math.Abs(numeros[0]-numeros[1]);
+        string resultado =  libreria.saberSiEsPrimo(diferencia)?$"la diferencia {diferencia} es un numero primo":$"la diferencia {diferencia} no es un numero primo";
+        Console.WriteLine(resultado);
+    }
+/*
+42. Leer dos números enteros y determinar si la diferencia entre los dos es un número par.*/
+    public override void ejercicio42(){     
+        Console.WriteLine("42. Leer dos números enteros y determinar si la diferencia entre los dos es un número par.");
+        int[] numeros = gestionDeDatos.inputInt(2);
+        int diferencia =  Math.Abs(numeros[0]-numeros[1]);
+        string resultado =  libreria.numeroEsPar(diferencia)?$"la diferencia {diferencia} es un numero par":$"la diferencia {diferencia} no es un numero par";
+        Console.WriteLine(resultado);
+    }
+/*43. Leer dos números enteros y determinar si la diferencia entre los dos es un número divisor
+exacto de alguno de los dos números.*/
+    public override void ejercicio43(){     
+        Console.WriteLine("43. Leer dos números enteros y determinar si la diferencia entre los dos es un número divisor exacto de alguno de los dos números.");
+        int[] numeros = gestionDeDatos.inputInt(2);
+        int diferencia =  Math.Abs(numeros[0]-numeros[1]);
+        string resultado =  libreria.some(numeros,(numero)=> numero==diferencia)?$"la diferencia {diferencia} es un multiplo de alguno de los dos números":$"la diferencia {diferencia} no es un multiplo de alguno de los dos números";
+        Console.WriteLine(resultado);
+    }
+/*
 44. Leer un número entero de 4 dígitos y determinar si el primer dígito es múltiplo de alguno de los
-otros dígitos.
+otros dígitos.*/
+    public override void ejercicio44(){
+        Console.WriteLine("44. Leer un número entero de 4 dígitos y determinar si el primer dígito es múltiplo de alguno de los otros dígitos.");
+        int[] numeros = gestionDeDatos.inputInt(2,gestionDeDatos.numeroContieneEstosDigitos(4)); 
+        int[][] grupoDigitos = libreria.mapConvertir(numeros,(numero)=>libreria.digitosDelNumero(numero).Reverse().ToArray());
+        int [] digitos = libreria.reduce(grupoDigitos,(numeros1,numeros2)=> numeros1.Concat(numeros2).ToArray());
+        int primerDigito = digitos[0];
+        int[] digitosSinPrimerNumero = digitos.Skip(1).ToArray();
+        libreria.DisplayValues(digitosSinPrimerNumero);
+        if(Array.Exists(digitosSinPrimerNumero,(numero)=> numero%primerDigito==0)){
+            Console.WriteLine($"el primer digito {primerDigito} es multiplo del otro");
+        }else{
+            Console.WriteLine($"el primer digito {primerDigito} no es multiplo del otro");
+        }
+    }
+/*
+
 45. Leer un número entero de 2 dígitos y si es par mostrar en pantalla la suma de sus dígitos, si es
 primo y menor que 10 mostrar en pantalla su último dígito y si es múltiplo de 5 y menor que 30
-mostrar en pantalla el primer dígito.
-46. Leer un número entero de 2 dígitos y si terminar en 1 mostrar en pantalla su primer dígito, si
+mostrar en pantalla el primer dígito.*/
+    public override void ejercicio45(){
+        Console.WriteLine("45. Leer un número entero de 2 dígitos y si es par mostrar en pantalla la suma de sus dígitos, si es primo y menor que 10 mostrar en pantalla su último dígito y si es múltiplo de 5 y menor que 30 mostrar en pantalla el primer dígito.");
+        int[] numeros = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(2)); 
+        int[] digitos = libreria.digitosDelNumero(numeros[0]).Reverse().ToArray();        
+        if(Array.TrueForAll(numeros,libreria.numeroEsPar)){
+            Console.WriteLine($"La suma de sus digitos es {digitos.Sum()}");
+        }else if(Array.TrueForAll(numeros,(numero)=>libreria.saberSiEsPrimo(numero)&&numero<10)){
+            Console.WriteLine($"su ultimo digito es {digitos[digitos.Length-1]}");
+        }else if(Array.TrueForAll(numeros,(numero)=> numero%5 ==0 &&numero<30))
+        {
+            // es múltiplo de 5 y menor que 30 mostrar en pantalla el primer dígito
+            Console.WriteLine($"su primer digito es {digitos[0]}");
+        }
+    }
+/*46. Leer un número entero de 2 dígitos y si terminar en 1 mostrar en pantalla su primer dígito, si
 termina en 2 mostrar en pantalla la suma de sus dígitos y si termina en 3 mostrar en pantalla el
 producto de sus dos dígitos.
 47. Leer dos números enteros y si la diferencia entre los dos números es par mostrar en pantalla la
