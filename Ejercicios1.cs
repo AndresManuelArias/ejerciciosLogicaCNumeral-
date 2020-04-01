@@ -586,12 +586,56 @@ mostrar en pantalla el primer dígito.*/
     }
 /*46. Leer un número entero de 2 dígitos y si terminar en 1 mostrar en pantalla su primer dígito, si
 termina en 2 mostrar en pantalla la suma de sus dígitos y si termina en 3 mostrar en pantalla el
-producto de sus dos dígitos.
+producto de sus dos dígitos.*/
+    public override void ejercicio46(){
+        Console.WriteLine("46. Leer un número entero de 2 dígitos y si terminar en 1 mostrar en pantalla su primer dígito, si termina en 2 mostrar en pantalla la suma de sus dígitos y si termina en 3 mostrar en pantalla el producto de sus dos dígitos.");
+        int[] numeros = gestionDeDatos.inputInt(1,gestionDeDatos.numeroContieneEstosDigitos(2));
+        int[][] grupoDigitos = numeros.Select(numero => libreria.digitosDelNumero(numero).Reverse().ToArray()).ToArray();
+        foreach(int[] digito in grupoDigitos){
+            libreria.DisplayValues(digito);
+            switch (digito[digito.Length-1])
+            {               
+                case 1:
+                    Console.WriteLine($"Su primer digito es {digito[0]}");
+                break;
+                case 2:
+                    Console.WriteLine($"La suma de sus digitos es {digito.Sum()}");
+                break;
+                case 3:
+                    Console.WriteLine($"El producto de sus digitos es {libreria.reduce(digito,(a,b)=>a*b) }");
+                break;
+                default:
+                    Console.WriteLine($"Su ultimo digito es {digito[digito.Length-1]}");
+                break;
+            }
+        }
+
+    }
+/*
 47. Leer dos números enteros y si la diferencia entre los dos números es par mostrar en pantalla la
 suma de los dígitos de los números, si dicha diferencia es un número primo menor que 10
 entonces mostrar en pantalla el producto de los dos números y si la diferencia entre ellos
 terminar en 4 mostrar en pantalla todos los dígitos por separado.
-48. Leer un número entero y si es menor que 100 determinar si es primo.
+*/
+    public override void ejercicio47(){
+        Console.WriteLine("47. Leer dos números enteros y si la diferencia entre los dos números es par mostrar en pantalla la suma de los dígitos de los números, si dicha diferencia es un número primo menor que 10 entonces mostrar en pantalla el producto de los dos números y si la diferencia entre ellos terminar en 4 mostrar en pantalla todos los dígitos por separado.");
+        int[] numeros = gestionDeDatos.inputInt(2);
+        int diferencia = libreria.reduce(numeros,(a,b)=> Math.Abs(Math.Abs(a)-Math.Abs(b)));
+        if(libreria.numeroEsPar(diferencia)){
+            int[][] grupoDigitos = numeros.Select(numero => libreria.digitosDelNumero(numero).Reverse().ToArray()).ToArray();
+            int sumaDigitos = libreria.sumar(grupoDigitos);
+            Console.WriteLine($"La suma de sus digitos es {sumaDigitos}");
+        }
+        if(libreria.saberSiEsPrimo(diferencia) && diferencia < 10){
+            Console.WriteLine($"El producto de sus numeros es {libreria.reduce(numeros,(a,b)=>a*b) }");
+        }
+        if(diferencia%10==4){
+            int[] digitos = libreria.digitosDelNumero(diferencia);
+            libreria.DisplayValues(digitos);
+        }   
+
+    }
+/*48. Leer un número entero y si es menor que 100 determinar si es primo.
 49. Leer un número entero y si es múltiplo de 4 determinar si su último dígito es primo.
 50. Leer un número entero y si es múltiplo de 4 mostrar en pantalla su mitad, si es múltiplo de 5
 mostrar en pantalla su cuadrado y si es múltiplo e 6 mostrar en pantalla su primer dígito.
